@@ -1,26 +1,36 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Navigation from './components/Navigation'
+import CareerLadder from './components/CareerLadder'
+import SkillMatrix from './components/SkillMatrix'
+import Reviews from './components/Reviews'
+import Goals from './components/Goals'
+import GuildsMentorship from './components/GuildsMentorship'
+import Projects from './components/Projects'
+import Resources from './components/Resources'
+import Dashboard from './components/Dashboard'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [active, setActive] = useState('dashboard')
+
+  useEffect(() => {
+    // default view
+    setActive('dashboard')
+  }, [])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-sky-50 text-gray-800">
+      <Navigation onSelect={setActive} />
+
+      {active === 'dashboard' && <Dashboard />}
+      {active === 'ladder' && <CareerLadder />}
+      {active === 'skills' && <SkillMatrix />}
+      {active === 'reviews' && <Reviews />}
+      {active === 'goals' && <Goals />}
+      {active === 'guilds' && <GuildsMentorship />}
+      {active === 'projects' && <Projects />}
+      {active === 'resources' && <Resources />}
+
+      <footer className="text-center text-xs text-gray-500 py-8">© {new Date().getFullYear()} Designer Growth</footer>
     </div>
   )
 }
